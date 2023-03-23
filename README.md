@@ -6,12 +6,16 @@ This repository serves Gensokyo Radio by default while in early development. Eve
 
 ## Roadmap
 
-- [ ] Basic playback
+- [x] Basic playback
 - [ ] Background playback
+- [ ] Save volume to LocalStorage
+- [ ] Quality selection
 - [ ] Schedule and show pages
 - [ ] Database
 - [ ] Admin UI
 - [ ] PWA support
+- [ ] Desktop app via Tauri
+- [ ] Mobile app via Tauri/Capacitor
 - [ ] Chromecast support
 - [ ] AirPlay support
 - [ ] Documentation
