@@ -1,3 +1,24 @@
+# spectrumless
+
+A website/app for radio stations that can't afford to get a slice of the spectrum.
+
+This repository serves Gensokyo Radio by default while in early development. Eventually, of course, it will be easy to add your own station with a bit of code exposed via an internal API.
+
+## Roadmap
+
+- [ ] Basic playback
+- [ ] Background playback
+- [ ] Schedule and show pages
+- [ ] Database
+- [ ] Admin UI
+- [ ] PWA support
+- [ ] Chromecast support
+- [ ] AirPlay support
+- [ ] Documentation
+- [ ] Notifications
+
+If you especially want a feature, you can fund its development through a bounty, contact oofdere@hey.com to do so.
+
 # create-svelte
 
 Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
