@@ -31,7 +31,6 @@
 			bind:seeking={$state.seeking}
 			bind:ended={$state.ended}
 			bind:readyState={$state.readyState}
-			bind:currentTime={$state.currentTime}
 			bind:playbackRate={$state.playbackRate}
 			bind:volume={$state.volume}
 			bind:paused={$state.paused}

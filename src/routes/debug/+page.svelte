@@ -5,15 +5,15 @@
 	const state = mediaState;
 </script>
 
-<p>{JSON.stringify($state.buffered)}</p>
-<p>{$state.currentTime}</p>
-<p>{$state.duration}</p>
-<p>{$state.ended}</p>
-<p>{$state.muted}</p>
-<p>{$state.paused}</p>
-<p>{$state.playbackRate}</p>
-<p>{$state.played}</p>
-<p>{$state.readyState}</p>
-<p>{JSON.stringify($state.seekable)}</p>
-<p>{$state.seeking}</p>
-<p>{$state.volume}</p>
+<p>buffered: {JSON.stringify($state.buffered)}</p>
+<p>current time: {$state.currentTime}</p>
+<p>duration: {$state.duration}</p>
+<p>ended: {$state.ended}</p>
+<p>muted: {$state.muted}</p>
+<p>paused: {$state.paused}</p>
+<p>playback rate: {$state.playbackRate}</p>
+<p>played: {$state.played}</p>
+<p>ready state: {JSON.stringify($state.readyState)}</p>
+<p>seekable: {JSON.stringify($state.seekable)}</p>
+<p>seeking: {$state.seeking}</p>
+<p>volume: {$state.volume}</p>
