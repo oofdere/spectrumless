@@ -1,15 +1,17 @@
 <script>
 	import '../app.postcss';
 	import { PUBLIC_AUDIO_ENDPOINT } from '$env/static/public';
+	import { mutableMediaState } from '../lib/GlobalStore';
+	const state = mutableMediaState;
 
-	let volume = 0.5;
-	let paused = true;
+	$state.volume = 0.5;
+	$state.paused = true;
 	function togglePause() {
-		paused = !paused;
+		$state.paused = !$state.paused;
 	}
 	let muted = false;
 	function toggleMute() {
-		muted = !muted;
+		$state.muted = !$state.muted;
 	}
 </script>
 
@@ -20,7 +22,21 @@
 		<br />
 		Audio endpoint: {PUBLIC_AUDIO_ENDPOINT}
 
-		<audio controls bind:volume bind:paused bind:muted>
+		<audio
+			controls
+			bind:duration={$state.duration}
+			bind:buffered={$state.buffered}
+			bind:played={$state.played}
+			bind:seekable={$state.seekable}
+			bind:seeking={$state.seeking}
+			bind:ended={$state.ended}
+			bind:readyState={$state.readyState}
+			bind:currentTime={$state.currentTime}
+			bind:playbackRate={$state.playbackRate}
+			bind:volume={$state.volume}
+			bind:paused={$state.paused}
+			bind:muted={$state.muted}
+		>
 			<source src={PUBLIC_AUDIO_ENDPOINT} />
 		</audio>
 
@@ -31,10 +47,10 @@
 		class="flex w-full flex-row flex-wrap h-12 shadow-xl bg-red-500 bottom-0 absolute place-items-center justify-around"
 	>
 		<button on:click={togglePause}>
-			{paused ? 'Play' : 'Pause'}
+			{$state.paused ? 'Play' : 'Pause'}
 		</button>
-		<input type="range" min="0" max="1" step="0.01" bind:value={volume} />
-		{volume}%
+		<input type="range" min="0" max="1" step="0.01" bind:value={$state.volume} />
+		{$state.volume}%
 		<button on:click={toggleMute}>
 			{muted ? 'Unmute' : 'Mute'}
 		</button>
