@@ -7,10 +7,11 @@
 
 	$state.volume = 0.5;
 	$state.paused = true;
-	let player: Node;
+	$state.currentTime = 0;
+	let player;
 	function togglePause() {
-		player.currentTime = $state.duration;
 		$state.paused = !$state.paused;
+		player.currentTime = $state.duration | 0;
 	}
 	let muted = false;
 	function toggleMute() {
@@ -19,11 +20,12 @@
 </script>
 
 <div class="">
-	<div class="flex w-full h-12 shadow-xl place-items-center justify-around">Station Name</div>
+	<div class="fixed flex top-0 w-full h-12 shadow-xl place-items-center justify-around">
+		Station Name
+	</div>
 
-	<div class="container m-auto">
+	<div class="container m-auto h-screen">
 		<audio
-			controls
 			bind:this={player}
 			bind:duration={$state.duration}
 			bind:buffered={$state.buffered}
@@ -44,13 +46,13 @@
 	</div>
 
 	<div
-		class="flex w-full flex-row flex-wrap h-12 shadow-xl bg-red-500 bottom-0 fixed place-items-center justify-around"
+		class="flex w-full flex-row flex-wrap h-12 border-t-black border-t bottom-0 fixed place-items-center justify-around"
 	>
 		<button on:click={togglePause}>
 			{$state.paused ? 'Play' : 'Pause'}
 		</button>
 		<input type="range" min="0" max="1" step="0.01" bind:value={$state.volume} />
-		{$state.volume}%
+		{Math.floor($state.volume * 100)}%
 		<button on:click={toggleMute}>
 			{muted ? 'Unmute' : 'Mute'}
 		</button>
