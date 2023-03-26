@@ -19,11 +19,7 @@
 	<div class="flex w-full h-12 shadow-xl place-items-center justify-around">Station Name</div>
 
 	<div class="container m-auto">
-		<br />
-		Audio endpoint: {PUBLIC_AUDIO_ENDPOINT}
-
 		<audio
-			controls
 			bind:duration={$state.duration}
 			bind:buffered={$state.buffered}
 			bind:played={$state.played}
@@ -43,7 +39,7 @@
 	</div>
 
 	<div
-		class="flex w-full flex-row flex-wrap h-12 shadow-xl bg-red-500 bottom-0 absolute place-items-center justify-around"
+		class="flex w-full flex-row flex-wrap h-12 shadow-xl bg-red-500 bottom-0 fixed place-items-center justify-around"
 	>
 		<button on:click={togglePause}>
 			{$state.paused ? 'Play' : 'Pause'}

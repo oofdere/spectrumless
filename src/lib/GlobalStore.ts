@@ -1,6 +1,6 @@
 import { browser } from '$app/environment';
 import { PUBLIC_WEBSOCKET_ENDPOINT } from '$env/static/public';
-import { readable, readonly, writable } from 'svelte/store';
+import { derived, readable, readonly, writable } from 'svelte/store';
 
 export type PlaybackState = {
 	duration: number | undefined;
@@ -35,13 +35,19 @@ export const mutableMediaState = writable<PlaybackState>({
 export const mediaState = readonly(mutableMediaState);
 
 export type MetadataState = {
+	songid?: number;
 	title?: string;
 	artist?: string;
 	album?: string;
-	artwork?: string;
+	circle?: string;
+	duration?: number;
+	albumart?: string;
+	year?: string;
+	played?: number;
+	remaining?: number;
 };
 
-export const metadata = readable<any>('waiting', (set) => {
+export const metadata = readable<MetadataState>(undefined, (set) => {
 	const updateMeta = async () => {
 		const ws = new WebSocket(PUBLIC_WEBSOCKET_ENDPOINT);
 
@@ -59,9 +65,11 @@ export const metadata = readable<any>('waiting', (set) => {
 				case m.startsWith('welcome') ? m : false:
 					pong = 'pong:' + m.split(':')[1];
 					break;
-				default:
-					set(m);
+				default: {
+					const j = JSON.parse(m);
+					set(j);
 					break;
+				}
 			}
 		};
 
@@ -75,4 +83,17 @@ export const metadata = readable<any>('waiting', (set) => {
 	};
 
 	if (browser) updateMeta();
+});
+
+export const countup = derived(metadata, ($metadata, set) => {
+	let t = $metadata ? $metadata.played : 0;
+
+	const interval = setInterval(() => {
+		t += 1;
+		set(t);
+	}, 1000);
+
+	return () => {
+		clearInterval(interval);
+	};
 });

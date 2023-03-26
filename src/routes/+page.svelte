@@ -1,3 +1,18 @@
-<h1>The home page will be added in a later version.</h1>
+<script lang="ts">
+	import { metadata, countup } from '$lib/GlobalStore';
+</script>
 
-<a class="underline" href="/debug">Open debug page</a>
+{#if $metadata}
+	<div class="flex h-auto">
+		<img src={$metadata.albumart} alt="Album art" />
+		<div>
+			<h1>{$metadata.title}</h1>
+			<h2>{$metadata.artist}</h2>
+			<h3>{$metadata.album} {$metadata.circle ? `/ ${$metadata.circle}` : ''}</h3>
+
+			{$countup}
+			<progress class="w-72" max={$metadata.duration} value={$countup} />
+			{$metadata.duration - $countup}
+		</div>
+	</div>
+{/if}

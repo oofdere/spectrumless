@@ -18,4 +18,4 @@
 <p>seekable: {JSON.stringify($state.seekable)}</p>
 <p>seeking: {$state.seeking}</p>
 <p>volume: {$state.volume}</p>
-<p>meta: {$metadata}</p>
+<p>meta: {JSON.stringify($metadata)}</p>
