@@ -1,12 +1,15 @@
-<script>
+<script lang="ts">
 	import '../app.postcss';
 	import { PUBLIC_AUDIO_ENDPOINT } from '$env/static/public';
 	import { mutableMediaState } from '../lib/GlobalStore';
+	import { noop } from 'svelte/internal';
 	const state = mutableMediaState;
 
 	$state.volume = 0.5;
 	$state.paused = true;
+	let player: Node;
 	function togglePause() {
+		player.currentTime = $state.duration;
 		$state.paused = !$state.paused;
 	}
 	let muted = false;
@@ -20,6 +23,8 @@
 
 	<div class="container m-auto">
 		<audio
+			controls
+			bind:this={player}
 			bind:duration={$state.duration}
 			bind:buffered={$state.buffered}
 			bind:played={$state.played}
