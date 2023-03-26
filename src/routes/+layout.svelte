@@ -1,7 +1,7 @@
 <script lang="ts">
 	import '../app.postcss';
 	import { PUBLIC_AUDIO_ENDPOINT } from '$env/static/public';
-	import { mutableMediaState } from '../lib/GlobalStore';
+	import { mutableMediaState, metadata, type MetadataState } from '../lib/GlobalStore';
 	const state = mutableMediaState;
 
 	$state.volume = 0.5;
@@ -17,15 +17,18 @@
 		$state.muted = !$state.muted;
 	}
 
-	if ('mediaSession' in navigator) {
-		$: ($state) => {
+	$: $metadata, updateMeta();
+	$: navigator.mediaSession.playbackState = $state.paused ? 'paused' : 'playing';
+	function updateMeta() {
+		if ($metadata && 'mediaSession' in navigator) {
 			navigator.mediaSession.metadata = new MediaMetadata({
-				title: $state.title,
-				artist: $state.artist,
-				album: $state.album,
-				artwork: [{ src: $state.artwork }]
+				title: $metadata.title,
+				artist: $metadata.artist,
+				album: $metadata.album,
+				artwork: [{ src: $metadata.albumart }]
 			});
-		};
+			console.log(navigator.mediaSession.metadata);
+		}
 	}
 </script>
 
