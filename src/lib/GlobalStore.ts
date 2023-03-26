@@ -41,17 +41,35 @@ export type MetadataState = {
 	artwork?: string;
 };
 
-if (browser) {
-	const ws = new WebSocket(PUBLIC_WEBSOCKET_ENDPOINT);
-
-	ws.send('grInitialConnection');
-}
 export const metadata = readable<any>('waiting', (set) => {
 	const updateMeta = async () => {
-		ws.onmessage = (e) => {
-			set(e);
-			console.log(e);
+		const ws = new WebSocket(PUBLIC_WEBSOCKET_ENDPOINT);
+
+		let pong = 'pong';
+
+		ws.onmessage = (d) => {
+			const m = d.data;
+
+			console.log(m, m.startsWith('welcome'));
+
+			switch (m) {
+				case 'ping':
+					ws.send(pong);
+					break;
+				case m.startsWith('welcome') ? m : false:
+					pong = 'pong:' + m.split(':')[1];
+					break;
+				default:
+					set(m);
+					break;
+			}
 		};
+
+		await new Promise(() => {
+			ws.onopen = () => {
+				ws.send('grInitialConnection');
+			};
+		});
 
 		return ws.close();
 	};
