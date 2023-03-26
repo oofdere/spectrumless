@@ -4,13 +4,15 @@
 </script>
 
 {#if $metadata}
-	<div class="flex h-full w-auto p-12 place-items-center justify-around mix-blend-dodge">
+	<div
+		class="flex flex-col md:flex-row h-full w-full p-12 place-items-center justify-around mix-blend-dodge"
+	>
 		<img
-			class="w-auto p-2 max-h-full aspect-square object-contain"
+			class="md:w-auto w-full md:p-2 max-h-full aspect-square object-contain"
 			src={$metadata.albumart}
 			alt="Album art"
 		/>
-		<div>
+		<div class="w-full md:w-auto md:max-w-full">
 			<h1 class="font-bold text-3xl">{$metadata.title}</h1>
 			<h2 class="text-xl">{$metadata.artist}</h2>
 			<h3>{$metadata.album} {$metadata.circle ? `/ ${$metadata.circle}` : ''}</h3>
@@ -24,7 +26,7 @@
 								minimumIntegerDigits: 2
 							})}
 					</span>
-					<progress class="w-72 h-2" max={$metadata.duration} value={$countup} />
+					<progress class="w-full md:w-72 h-2" max={$metadata.duration} value={$countup} />
 					<span class="font-mono">
 						{Math.trunc(($metadata.duration - $countup) / 60) +
 							':' +
