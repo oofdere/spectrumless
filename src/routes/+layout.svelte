@@ -2,7 +2,6 @@
 	import '../app.postcss';
 	import { PUBLIC_AUDIO_ENDPOINT } from '$env/static/public';
 	import { mutableMediaState } from '../lib/GlobalStore';
-	import { noop } from 'svelte/internal';
 	const state = mutableMediaState;
 
 	$state.volume = 0.5;
@@ -16,6 +15,17 @@
 	let muted = false;
 	function toggleMute() {
 		$state.muted = !$state.muted;
+	}
+
+	if ('mediaSession' in navigator) {
+		$: ($state) => {
+			navigator.mediaSession.metadata = new MediaMetadata({
+				title: $state.title,
+				artist: $state.artist,
+				album: $state.album,
+				artwork: [{ src: $state.artwork }]
+			});
+		};
 	}
 </script>
 
