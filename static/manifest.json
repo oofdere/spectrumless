@@ -1,0 +1,22 @@
+{
+	"background_color": "#ffffff",
+	"description": "sp",
+	"dir": "ltr",
+	"display": "standalone",
+	"name": "spec",
+	"orientation": "any",
+	"scope": "/",
+	"short_name": "spec",
+	"start_url": "/",
+	"theme_color": "#ffffff",
+	"categories": [],
+	"screenshots": [],
+	"icons": [
+		{
+			"src": "./favicon.png",
+			"type": "image/png",
+			"sizes": "128x128"
+		}
+	],
+	"shortcuts": []
+}
