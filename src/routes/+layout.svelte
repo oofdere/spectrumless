@@ -2,6 +2,7 @@
 	import '../app.postcss';
 	import { PUBLIC_AUDIO_ENDPOINT } from '$env/static/public';
 	import { mutableMediaState, metadata, type MetadataState } from '../lib/GlobalStore';
+	import { browser } from '$app/environment';
 	const state = mutableMediaState;
 
 	$state.volume = 0.5;
@@ -18,7 +19,7 @@
 	}
 
 	$: $metadata, updateMeta();
-	$: navigator.mediaSession.playbackState = $state.paused ? 'paused' : 'playing';
+	$: if (browser) navigator.mediaSession.playbackState = $state.paused ? 'paused' : 'playing';
 	function updateMeta() {
 		if ($metadata && 'mediaSession' in navigator) {
 			navigator.mediaSession.metadata = new MediaMetadata({
