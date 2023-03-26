@@ -1,6 +1,8 @@
-import { readonly, writable } from 'svelte/store';
+import { browser } from '$app/environment';
+import { PUBLIC_WEBSOCKET_ENDPOINT } from '$env/static/public';
+import { readable, readonly, writable } from 'svelte/store';
 
-export type GlobalState = {
+export type PlaybackState = {
 	duration: number | undefined;
 	buffered: any | undefined;
 	played: any | undefined;
@@ -15,7 +17,7 @@ export type GlobalState = {
 	muted: boolean | undefined;
 };
 
-export const mutableMediaState = writable<GlobalState>({
+export const mutableMediaState = writable<PlaybackState>({
 	duration: undefined,
 	buffered: undefined,
 	played: undefined,
@@ -31,3 +33,28 @@ export const mutableMediaState = writable<GlobalState>({
 });
 
 export const mediaState = readonly(mutableMediaState);
+
+export type MetadataState = {
+	title?: string;
+	artist?: string;
+	album?: string;
+	artwork?: string;
+};
+
+if (browser) {
+	const ws = new WebSocket(PUBLIC_WEBSOCKET_ENDPOINT);
+
+	ws.send('grInitialConnection');
+}
+export const metadata = readable<any>('waiting', (set) => {
+	const updateMeta = async () => {
+		ws.onmessage = (e) => {
+			set(e);
+			console.log(e);
+		};
+
+		return ws.close();
+	};
+
+	if (browser) updateMeta();
+});

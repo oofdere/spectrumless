@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { stringify } from 'postcss';
-	import { mediaState } from '../../lib/GlobalStore';
+	import { onMount } from 'svelte';
+	import { mediaState, metadata } from '../../lib/GlobalStore';
 
 	const state = mediaState;
 </script>
@@ -17,3 +18,4 @@
 <p>seekable: {JSON.stringify($state.seekable)}</p>
 <p>seeking: {$state.seeking}</p>
 <p>volume: {$state.volume}</p>
+<p>meta: {$metadata}</p>
