@@ -8,7 +8,7 @@ This repository serves Gensokyo Radio by default while in early development. Eve
 
 - [x] Basic playback
 - [x] Background playback
-- [ ] Save volume to LocalStorage
+- [x] Save volume to LocalStorage
 - [ ] Quality selection
 - [ ] Schedule and show pages
 - [ ] Database

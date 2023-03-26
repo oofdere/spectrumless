@@ -2,10 +2,12 @@
 	import '../app.postcss';
 	import { PUBLIC_AUDIO_ENDPOINT } from '$env/static/public';
 	import { mutableMediaState, metadata, type MetadataState } from '../lib/GlobalStore';
+	import { getVolumeStore } from '$lib/VolumeStore';
 	import { browser } from '$app/environment';
 	const state = mutableMediaState;
 
-	$state.volume = 0.5;
+	const vol = getVolumeStore();
+
 	$state.paused = true;
 	$state.currentTime = 0;
 	let player;
@@ -49,7 +51,7 @@
 			bind:ended={$state.ended}
 			bind:readyState={$state.readyState}
 			bind:playbackRate={$state.playbackRate}
-			bind:volume={$state.volume}
+			bind:volume={$vol}
 			bind:paused={$state.paused}
 			bind:muted={$state.muted}
 		>
@@ -65,8 +67,8 @@
 		<button on:click={togglePause}>
 			{$state.paused ? 'Play' : 'Pause'}
 		</button>
-		<input type="range" min="0" max="1" step="0.01" bind:value={$state.volume} />
-		{Math.floor($state.volume * 100)}%
+		<input type="range" min="0" max="1" step="0.01" bind:value={$vol} />
+		{Math.floor($vol * 100)}%
 		<button on:click={toggleMute}>
 			{muted ? 'Unmute' : 'Mute'}
 		</button>
