@@ -42,9 +42,8 @@
 			</div>
 		</div>
 	</div>
-	<img
-		src={$metadata.albumart}
-		alt="Album art"
-		class="w-screen h-screen fixed top-0 left-0 -z-50 blur-3xl scale-125"
+	<div
+		class="w-screen h-screen fixed top-0 left-0 -z-50 blur-md backdrop-blur-md bg-cover bg-center"
+		style="background-image: url({$metadata.albumart})"
 	/>
 {/if}
